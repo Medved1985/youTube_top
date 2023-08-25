@@ -7,7 +7,7 @@ import { map, tap } from 'rxjs/operators';
 	providedIn: 'root'
 })
 export class YoutubeService {
-	nextPageToken = "";
+	nextPageToken = "" ;
 	videos$: Observable<any[]> | undefined;
 	videosSubject = new BehaviorSubject<any[]>([]);
 	videosUrl = 'https://www.googleapis.com/youtube/v3/videos';
