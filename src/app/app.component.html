@@ -1,0 +1,43 @@
+<div class="mt-3 mb-3">
+  <span (click)="video()" class="point"
+    [ngStyle]="{background: vid ? '#b9ddff' : '#FAFAFA', transition: 'all .2s' }">video</span>
+  <span (click)="favorites()" class="ml-3 point"
+    [ngStyle]="{background: favorite ? '#b9ddff' : '#FAFAFA', transition: 'all .2s' }">favorites</span>
+</div>
+
+<ng-container *ngIf="!favorite">
+  <div class="search mb-3">
+    <input type="text" (keyup.enter)="showVid()" [(ngModel)]="searchValue">
+    <button (click)="showVid()">
+      Поиск
+    </button>
+    <button (click)="resetVid()">
+      Сброс
+    </button>
+  </div>
+  <div *ngFor="let video of videos">
+    <div class="card">
+      <img src="{{ video.snippet.thumbnails.default.url }}" alt="logo">
+      <h3>{{ video.snippet.title }}</h3>
+      <button *ngIf="isFavorite" (click)="toFavorites(video)">
+        в избранное
+      </button>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="favorite">  
+  <div *ngFor="let video of favoriteVideos">
+    <div class="card">
+      <img src="{{ video.snippet.thumbnails.default.url }}" alt="logo">
+      <h3>{{ video.snippet.title }}</h3>
+      <button (click)="fromFavorites(video)">
+        Убрать из избранного
+      </button>
+    </div>
+  </div>
+</ng-container>
+
+<button *ngIf="!favorite" (click)="loadVideosMore()">
+  Загрузить еще
+</button>
